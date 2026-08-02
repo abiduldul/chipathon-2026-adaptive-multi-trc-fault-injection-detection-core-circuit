@@ -1,16 +1,17 @@
 module tb_register;
-    logic       iCLK;
-    logic       iRST;
-    logic       reg_write;
-    logic [1:0] reg_addr;
-    logic [7:0] reg_wdata, reg_rdata;
+    logic           iCLK, iRST;
 
-    logic [1:0] glitch_detected_in, virtual_active_trc_in;
-    logic [3:0] failure_est_in;
+    logic           reg_write;
+    logic [1:0]     reg_addr;
+    logic [7:0]     reg_wdata, reg_rdata;
 
-    logic       vgd_en, auto_cal_en, int_en, soft_reset_out;
-    logic [1:0] trc_mask_sel;
-    logic [3:0] thres_val, cal_period;
+    logic           glitch_detected_in;
+    logic [1:0]     virtual_active_trc_in;
+    logic [3:0]     failure_est_in;
+
+    logic           vgd_en, auto_cal_en, int_en, soft_reset_out;
+    logic [1:0]     trc_mask_sel;
+    logic [3:0]     thres_val, cal_period;
 
     localparam CLK_PERIOD = 10;
 
@@ -56,6 +57,10 @@ module tb_register;
         end
     endtask
 
+
+    /* ------------------------------------------------------------
+       SIMULATION SCENARIOS
+    ------------------------------------------------------------ */
     initial begin
         $dumpfile("sim/tb_register.vcd");
         $dumpvars(0, tb_register);
@@ -63,7 +68,7 @@ module tb_register;
         reg_write             = 1'b0;
         reg_addr              = 2'b00;
         reg_wdata             = 8'h00;
-        glitch_detected_in    = 2'b00;
+        glitch_detected_in    = 1'b0;
         virtual_active_trc_in = 2'b00;
         failure_est_in        = 4'h0;
 
@@ -76,10 +81,12 @@ module tb_register;
         ------------------------------------------------------------ */
         $display("======= REGISTER SIMULATION =======");
         
+        
         /* Test 1: Read default register values */
         $display("\n--- Read default configuration values ---");
         read_reg(2'b00); // must output 0x07
         read_reg(2'b01); // must output 0x70
+
 
         /* Test 2: Write new configuration values */
         $display("\n--- Change configuration value ---");
@@ -88,23 +95,27 @@ module tb_register;
             if (auto_cal_en === 1'b0 && trc_mask_sel === 2'b10) $display("[SUCCESS] Configuration control register update is valid.");
             else $display("[ERROR] Failed to change operation mode!");
 
+
         /* Test 3: Write new threshold values */
         $display("\n--- Setting New Security Threshold Values ---");
         write_reg(2'b01, 8'hA5); // CAL_PERIOD=4'hA, THRES_VAL=4'h5 (0xA5)
         #10; read_reg(2'b01);
 
+
         /* Test 4: Simulate attack detection from hardware side */
         $display("\n--- Injecting Threat Status from Hardware Block ---");
-        glitch_detected_in    = 2'b01;
+        glitch_detected_in    = 1'b1;
         virtual_active_trc_in = 2'b11;
         failure_est_in        = 4'hB;
         #20; read_reg(2'b10);
 
+
         /* Test 5: Trigger interrupt acknowledge to clear locked alarm */
         $display("\n--- Sending Interrupt Clear Signal (INT_ACK) ---");
-        glitch_detected_in = 2'b00;
+        glitch_detected_in = 1'b0;
         write_reg(2'b00, 8'h35);
         #20; read_reg(2'b10);
+
 
         $display("\n======= REGISTER SIMULATION DONE =======");
         $finish;

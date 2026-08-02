@@ -1,13 +1,10 @@
 module register_threshold (
-    input  logic       iCLK,
-    input  logic       iRST,
-    input  logic       iWR,
+    input  logic        iCLK, iRST, iWR,
 
-    input  logic [7:0] iWDATA,
-    output logic [7:0] oRDATA,
+    input  logic [7:0]  iWDATA,
+    output logic [7:0]  oRDATA,
     
-    output logic [3:0] THRES_VAL,
-    output logic [3:0] CAL_PERIOD
+    output logic [3:0]  THRES_VAL, CAL_PERIOD
 );
 
     logic [7:0] reg_data;

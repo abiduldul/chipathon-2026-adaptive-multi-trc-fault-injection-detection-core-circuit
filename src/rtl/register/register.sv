@@ -1,19 +1,19 @@
 module register (
-    input  logic       iCLK,
-    input  logic       iRST,
+    input  logic        iCLK, iRST,
     
     /* spi interface */
-    input  logic       reg_write,
-    input  logic [1:0] reg_addr,
-    input  logic [7:0] reg_wdata,
-    output logic [7:0] reg_rdata,
+    input  logic        reg_write,
+    input  logic [1:0]  reg_addr,
+    input  logic [7:0]  reg_wdata,
+    output logic [7:0]  reg_rdata,
 
-    input  logic [1:0] iGLITCH_STATUS, iACTIVE_TRC,
-    input  logic [3:0] iFAILURE_EST,
+    input  logic        iGLITCH_STATUS,
+    input  logic [1:0]  iACTIVE_TRC,
+    input  logic [3:0]  iFAILURE_EST,
 
-    output logic       oVGD_EN, oAUTO_CAL_EN, oINT_EN, oSOFT_RESET_OUT,
-    output logic [1:0] oTRC_SEL,
-    output logic [3:0] oTHRES_VAL, oCAL_PERIOD
+    output logic        oVGD_EN, oAUTO_CAL_EN, oINT_EN, oSOFT_RESET_OUT,
+    output logic [1:0]  oTRC_SEL,
+    output logic [3:0]  oTHRES_VAL, oCAL_PERIOD
 );
 
     localparam logic [1:0] ADDR_CONFIG    = 2'b00;

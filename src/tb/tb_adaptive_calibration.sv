@@ -1,7 +1,4 @@
-`timescale 1ns/1ps
-
 module tb_adaptive_calibration;
-
     localparam int ST_IDLE          = 0;
     localparam int ST_MEASURE       = 1;
     localparam int ST_FILTERING     = 2;
@@ -10,43 +7,30 @@ module tb_adaptive_calibration;
     localparam int ST_ADJUST_FASTER = 5;
     localparam int ST_DONE          = 6;
 
-    logic       clk;
-    logic       rst_n;
+    logic       iCLK, iRST;
     logic [3:0] cal_period_in;
     logic [3:0] trc_in;
 
+    logic       cal_done, cal_done_prev;
     logic [1:0] auto_trc_sel_out;
     logic [3:0] auto_adj_out;
-    logic       cal_done;
 
     int errors = 0;
     int checks = 0;
 
-    adaptive_calibration dut (
-        .clk              (clk),
-        .rst_n            (rst_n),
-        .cal_period_in    (cal_period_in),
-        .trc_in           (trc_in),
-        .auto_trc_sel_out (auto_trc_sel_out),
-        .auto_adj_out     (auto_adj_out),
-        .cal_done         (cal_done)
+    initial iCLK = 1'b0;
+    always #5 iCLK = ~iCLK;
+
+    adaptive_calibration adaptive_calibration (
+        .iCLK (iCLK), .iRST (iRST),
+        .iCAL_PERIOD (cal_period_in), .iTRC (trc_in),
+        .oDONE (cal_done),
+        .oAUTO_TRC_SEL (auto_trc_sel_out), .oAUTO_ADJ (auto_adj_out)
     );
 
-    initial clk = 1'b0;
-    always #5 clk = ~clk;
 
-    task automatic apply_reset();
-        rst_n         = 1'b0;
-        trc_in        = 4'h0;
-        cal_period_in = 4'h0;
-        repeat (4) @(posedge clk);
-        rst_n = 1'b1;
-        @(posedge clk);
-    endtask
-
-    logic cal_done_prev;
-    always @(posedge clk) begin
-        if (!rst_n) begin
+    always @(posedge iCLK) begin
+        if (!iRST) begin
             cal_done_prev <= 1'b0;
         end else begin
             if (cal_done_prev && cal_done) begin
@@ -61,6 +45,21 @@ module tb_adaptive_calibration;
     logic [1:0] shadow_sel = 2'h0;
     logic [3:0] shadow_tap0 = 0, shadow_tap1 = 0, shadow_tap2 = 0, shadow_tap3 = 0;
 
+
+    /* ------------------------------------------------------------
+       TASKS
+    ------------------------------------------------------------ */
+    /* apply reset task */
+    task automatic apply_reset();
+        iRST         = 1'b0;
+        trc_in        = 4'h0;
+        cal_period_in = 4'h0;
+        repeat (4) @(posedge iCLK);
+        iRST = 1'b1;
+        @(posedge iCLK);
+    endtask
+
+    /* shadow model of the DUT's prediction logic, used to verify the DUT's outputs */
     task automatic shadow_predict(
         input  int unsigned num_edges,
         input  logic [3:0]  period,
@@ -78,11 +77,11 @@ module tb_adaptive_calibration;
             shadow_tap1 = shadow_tap0;
             shadow_tap0 = err_cnt;
 
-            filt_sum = shadow_tap0 + shadow_tap1 + shadow_tap2 + shadow_tap3;
+            filt_sum = 6'(shadow_tap0) + 6'(shadow_tap1) + 6'(shadow_tap2) + 6'(shadow_tap3);
             filt_avg = filt_sum >> 2;
             baseline = period >> 1;
 
-            if (filt_avg > baseline) begin
+            if (filt_avg > 6'(baseline)) begin
                 if (shadow_adj == 4'hF) begin
                     if (shadow_sel != 2'd3) begin
                         shadow_sel = shadow_sel + 2'd1;
@@ -107,14 +106,17 @@ module tb_adaptive_calibration;
         end
     endtask
 
+    /* wait for DUT to reach a specific state */
     task automatic wait_for_dut_state(input int st);
-        while (dut.state !== st) @(negedge clk);
+        while (adaptive_calibration.state !== st[2:0]) @(negedge iCLK);
     endtask
 
+    /* wait for DUT to assert cal_done */
     task automatic wait_for_cal_done();
-        while (!cal_done) @(negedge clk);
+        while (!cal_done) @(negedge iCLK);
     endtask
 
+    /* drives error pulses on trc_in for one measurement window */
     task automatic drive_one_window(
         input int unsigned num_edges,
         input logic [3:0]  period,
@@ -140,15 +142,14 @@ module tb_adaptive_calibration;
                 if (edges_left > 0 && (i % 2 == 0)) begin
                     trc_in[sel] = 1'b1;
                     edges_left--;
-                end else begin
-                    trc_in[sel] = 1'b0;
-                end
-                @(negedge clk);
+                end else  trc_in[sel] = 1'b0;
+                @(negedge iCLK);
             end
             trc_in[sel] = 1'b0;
         end
     endtask
 
+    /* executes a complete calibration cycle and verifies outputs against the shadow model */
     task automatic run_window(input int unsigned num_edges, input logic [3:0] period);
         logic [3:0] pred_adj;
         logic [1:0] pred_sel;
@@ -180,54 +181,48 @@ module tb_adaptive_calibration;
         end
     endtask
 
+
+    /* ------------------------------------------------------------
+       SIMULATION SCENARIOS
+    ------------------------------------------------------------ */
     initial begin
+        $dumpfile("sim/tb_adaptive_calibration.vcd");
+        $dumpvars(0, tb_adaptive_calibration);
         apply_reset();
 
-        // PHASE A: flush the one spurious calibration loop that runs
-        // immediately out of reset with cal_period_in/trc_in still at
-        // their default (0) values. It resolves to (adj=0, sel=0), which
-        // matches the shadow model's initial state, so nothing to check --
-        // just get past it before starting the real sequence.
+        /* ------------------------------------------------------------
+           SIMULATION TEST PHASES
+        ------------------------------------------------------------ */
+        $display("======= ADAPTIVE CALIBRATION SIMULATION =======");
+
+        /* phase A: reset flush complete */
         wait_for_cal_done();
         $display("PHASE A: reset flush complete");
 
-        // PHASE B: nominal / already-at-floor holding behavior
+        /* phase B: nominal, floor-hold (period=9, edges=0) */
         $display("PHASE B: nominal, floor-hold (period=9, edges=0)");
         repeat (5) run_window(0, 4'd9);
 
-        // PHASE C: sustained high error activity, odd period (9) so the
-        // achievable max (5) exceeds the derived baseline (4) -- this
-        // should ramp up auto_adj_out, saturate, switch channels, and
-        // eventually hold at (adj=F, sel=3).
+        /* phase C: sustained thermal slowdown (period=9, edges=5) */
         $display("PHASE C: sustained thermal slowdown (period=9, edges=5)");
         repeat (60) run_window(5, 4'd9);
 
-        // PHASE D: even-period corner case. Max achievable edges (4) for
-        // period=8 exactly equals baseline (4), so this should NEVER
-        // trigger ADJUST_SLOWER -- auto_adj_out/auto_trc_sel_out should
-        // hold constant for the whole phase (verifying the observation
-        // in the file header).
+        /* phase D: even-period ceiling corner case (period=8, edges=4) */
         $display("PHASE D: even-period ceiling corner case (period=8, edges=4)");
         repeat (10) run_window(4, 4'd8);
 
-        // PHASE E: sustained zero error activity, ramps back down,
-        // saturates at the floor, switches channels downward, and
-        // eventually holds at (adj=0, sel=0).
+        /* phase E: sustained nominal / ramp-down (period=9, edges=0) */
         $display("PHASE E: sustained nominal / ramp-down (period=9, edges=0)");
         repeat (60) run_window(0, 4'd9);
 
-        // PHASE F: minimum window boundary (cal_period_in=1 -> baseline=0).
-        // With baseline=0 there is no HOLD band: every window is either
-        // avg=0 (ADJUST_FASTER) or avg>0 (ADJUST_SLOWER).
+        /* phase F: minimum window boundary (period=1) */
         $display("PHASE F: minimum window boundary (period=1)");
         repeat (4) run_window(1, 4'd1);
         repeat (4) run_window(0, 4'd1);
 
         $display("--------------------------------------------------");
-        if (errors == 0)
-            $display("TESTBENCH PASSED: %0d checks, 0 errors", checks);
-        else
-            $display("TESTBENCH FAILED: %0d checks, %0d errors", checks, errors);
+        if (errors == 0) $display("TESTBENCH PASSED: %0d checks, 0 errors", checks);
+        else             $display("TESTBENCH FAILED: %0d checks, %0d errors", checks, errors);
         $display("--------------------------------------------------");
 
         $finish;

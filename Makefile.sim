@@ -1,31 +1,29 @@
-VERILATOR 	= verilator
-V_FLAGS 	= --binary --sv --trace --timing --Mdir $(BUILD_DIR)
+VERILATOR   = verilator
+V_FLAGS     = --binary --sv --trace --timing --timescale 1ns/1ps --Mdir $(BUILD_DIR)
 
-INC_DIR 	= -Irtl/packages -Irtl/lib -Irtl/core
-SIM_DIR 	= sim
+INC_DIR     = -Irtl/packages -Irtl/lib -Irtl/core
+SIM_DIR     = sim
 BUILD_DIR   = $(SIM_DIR)/build
-BIN         = $(BUILD_DIR)/V$(TOP_MODULE)
 RTL_DIR     = src/rtl
 TB_DIR      = src/tb
 
-TOP_MODULE 	= tb_spi_slave_interface
-
-SRCS 		= $(shell find $(RTL_DIR) -name "*.sv") \
-              $(TB_DIR)/$(TOP_MODULE).sv
-
+TOP        ?= spi_slave_interface
+BIN         = $(BUILD_DIR)/Vtb_$(TOP)
+SRCS        = $(shell find $(RTL_DIR) -name "*.sv") \
+              $(TB_DIR)/tb_$(TOP).sv
 
 all: clean compile sim
 
 compile:
-	$(VERILATOR) $(V_FLAGS) $(INC_DIR) $(SRCS) --top-module $(TOP_MODULE)
+	$(VERILATOR) $(V_FLAGS) $(INC_DIR) $(SRCS) --top-module tb_$(TOP)
 
 sim:
 	./$(BIN)
 
 wave:
-	gtkwave $(SIM_DIR)/$(TOP_MODULE).vcd
+	gtkwave $(SIM_DIR)/tb_$(TOP).vcd
 
 clean:
-	rm -rf $(BUILD_DIR) $(SIM_DIR)/$(TOP_MODULE).vcd
+	rm -rf $(BUILD_DIR) $(SIM_DIR)/*.vcd
 
 .PHONY: all compile sim wave clean

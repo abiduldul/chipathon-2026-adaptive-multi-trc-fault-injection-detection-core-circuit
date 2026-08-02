@@ -1,47 +1,47 @@
 module delay_paths (
-    input  logic       iCLK,
-    input  logic       iRST,
+    input  logic        iCLK, iRST,
+    input  logic [1:0]  iTRC_SEL,
 
-    input  logic [1:0] iTRC_SEL,   // channel select for oTRC_MUX (calibration/debug)
-
-    output logic [3:0] oTRC_ERR,   // {TRC3, TRC2, TRC1, TRC0}, always active (parallel)
-    output logic [2:0] oTRC_MUX    // 3-bit status code, see table above
+    output logic [2:0]  oTRC_MUX,
+    output logic [3:0]  oTRC_ERR
 );
 
-    localparam real DELAY_ELEMENT = 0.05; // ns, sim-only per-inverter delay
+    localparam real DELAY_ELEMENT = 0.05;
 
+    /* ------------------------------------------------------------
+       TRC CHAINS
+    ------------------------------------------------------------ */
+    /* extreme sensitivity 192 inverters */
     trc_behavioral_chain #(
-        .NUM_INVERTERS(192),   // Extreme sensitivity
-        .DELAY_VAL(DELAY_ELEMENT)
+        .NUM_INVERTERS(192), .DELAY_VAL(DELAY_ELEMENT)
     ) u_trc0 (
         .iCLK (iCLK), .iRST (iRST), .oTRC (oTRC_ERR[0])
     );
 
+    /* high sensitivity 144 inverters */
     trc_behavioral_chain #(
-        .NUM_INVERTERS(144),   // High sensitivity
-        .DELAY_VAL(DELAY_ELEMENT)
+        .NUM_INVERTERS(144), .DELAY_VAL(DELAY_ELEMENT)
     ) u_trc1 (
         .iCLK (iCLK), .iRST (iRST), .oTRC (oTRC_ERR[1])
     );
 
+    /* medium sensitivity 96 inverters */
     trc_behavioral_chain #(
-        .NUM_INVERTERS(96),    // Medium sensitivity
-        .DELAY_VAL(DELAY_ELEMENT)
+        .NUM_INVERTERS(96), .DELAY_VAL(DELAY_ELEMENT)
     ) u_trc2 (
         .iCLK (iCLK), .iRST (iRST), .oTRC (oTRC_ERR[2])
     );
 
+    /* low sensitivity 48 inverters */
     trc_behavioral_chain #(
-        .NUM_INVERTERS(48),    // Low sensitivity
-        .DELAY_VAL(DELAY_ELEMENT)
+        .NUM_INVERTERS(48), .DELAY_VAL(DELAY_ELEMENT)
     ) u_trc3 (
         .iCLK (iCLK), .iRST (iRST), .oTRC (oTRC_ERR[3])
     );
 
+
     /* ------------------------------------------------------------
-       CALIBRATION MUX -- 3-bit status code
-       000 normal | 001 TRC0 | 010 TRC1 | 011 TRC2 | 100 TRC3
-       101/110/111 reserved
+       MUX TRC
     ------------------------------------------------------------ */
     always_comb begin
         case (iTRC_SEL)

@@ -1,100 +1,76 @@
-`timescale 1ns / 1ps
-
 module tb_delay_paths;
+    logic           iCLK, iRST;
+    logic [1:0]     iTRC_SEL;
+    logic [2:0]     oTRC_MUX;
+    logic [3:0]     oTRC_ERR;
 
-    // ------------------------------------------------------------
-    // Signal Declarations
-    // ------------------------------------------------------------
-    logic       iCLK;
-    logic       iRST;
-    logic [1:0] iTRC_SEL;
-    logic [3:0] oTRC_ERR;
-    logic [2:0] oTRC_MUX;
+    logic clk_100mhz    = 1'b0;
+    logic clk_1ghz      = 1'b0;
+    logic inject_glitch = 1'b0;
 
-    // Variable to dynamically change clock speed during simulation
-    real half_period;
+    always #5.0 clk_100mhz  = ~clk_100mhz;
+    always #0.5 clk_1ghz    = ~clk_1ghz;
+    
+    assign iCLK = inject_glitch ? clk_1ghz : clk_100mhz;
 
-    // ------------------------------------------------------------
-    // DUT (Device Under Test) Instantiation
-    // ------------------------------------------------------------
-    delay_paths dut (
-        .iCLK(iCLK),
-        .iRST(iRST),
+
+    delay_paths delay_paths (
+        .iCLK(iCLK), .iRST(iRST),
         .iTRC_SEL(iTRC_SEL),
-        .oTRC_ERR(oTRC_ERR),
-        .oTRC_MUX(oTRC_MUX)
+        .oTRC_ERR(oTRC_ERR), .oTRC_MUX(oTRC_MUX)
     );
 
-    // ------------------------------------------------------------
-    // Dynamic Clock Generator
-    // ------------------------------------------------------------
-    initial iCLK = 1'b0;
-    always begin
-        // Using half_period variable so the frequency can be altered
-        #half_period iCLK = ~iCLK;
-    end
 
-    // ------------------------------------------------------------
-    // Task: Reset DUT (Equivalent to reset_dut in Python)
-    // ------------------------------------------------------------
+    /* ------------------------------------------------------------
+       TASKS
+    ------------------------------------------------------------ */
+    /* reset */
     task reset_dut();
         begin
             iRST = 1'b0;
-            #15; // Wait 15ns (equivalent to await Timer(15, unit="ns"))
+            #15;
             iRST = 1'b1;
-            repeat(3) @(posedge iCLK); // Wait 3 clock cycles
+            repeat(3) @(posedge iCLK);
         end
     endtask
 
-    // ------------------------------------------------------------
-    // Simulation Scenarios
-    // ------------------------------------------------------------
+
+    /* ------------------------------------------------------------
+       SIMULATION SCENARIOS
+    ------------------------------------------------------------ */
     initial begin
-        $dumpfile("sim_delay_paths.vcd");
+        $dumpfile("sim/tb_delay_paths.vcd");
         $dumpvars(0, tb_delay_paths);
 
-        // Initial values
         iTRC_SEL = 2'b00;
         
-        /* ==========================================
-           Test 1: Nominal Clock (no glitch)
-           ========================================== */
-        $display("\n--- Test 1: Nominal Clock (100 MHz) ---");
-        half_period = 5.0; // 10ns period -> 100 MHz
-        
-        reset_dut();
-        
-        repeat(20) @(posedge iCLK);
-        
-        $display("oTRC_ERR (nominal) = %b", oTRC_ERR);
-        if (oTRC_ERR === 4'b0000) begin
-            $display("[PASS] Expected no glitch at nominal clock.");
-        end else begin
-            $display("[FAIL] Expected no glitch, but got oTRC_ERR = %b", oTRC_ERR);
-        end
 
-        /* ==========================================
-           Test 2: Glitch Injection (overclocking)
-           ========================================== */
-        $display("\n--- Test 2: Glitch Injection (1 GHz) ---");
-        half_period = 5.0; // Return to normal before resetting
-        
+        /* ------------------------------------------------------------
+           SIMULATION TEST CASES
+        ------------------------------------------------------------ */
+        $display("======= DELAY PATHS SIMULATION =======");
+
+
+        /* test case 1: nominal clock */
+        $display("\n--- Test 1: Nominal Clock (100 MHz) ---");
         reset_dut();
-        
+        repeat(20) @(posedge iCLK);
+        $display("oTRC_ERR (nominal) = %b", oTRC_ERR);
+        if (oTRC_ERR === 4'b0000)   $display("[PASS] Expected no glitch at nominal clock.");
+        else                        $display("[FAIL] Expected no glitch, but got oTRC_ERR = %b", oTRC_ERR);
+
+
+        /* test case 2: glitch injection */
+        $display("\n--- Test 2: Glitch Injection (1 GHz) ---");
+        reset_dut();
         repeat(10) @(posedge iCLK);
-        
-        // Drastically change clock speed (glitch injection)
-        half_period = 0.5; // 1ns period -> 1 GHz
-        
+        inject_glitch = 1'b1;
         repeat(30) @(posedge iCLK);
-        
         $display("oTRC_ERR (during glitch) = %b", oTRC_ERR);
-        if (oTRC_ERR !== 4'b0000) begin
-            $display("[PASS] Expected at least one TRC channel to trip.");
-        end else begin
-            $display("[FAIL] Expected TRC channel to trip, but oTRC_ERR stayed 0000.");
-        end
+        if (oTRC_ERR !== 4'b0000)   $display("[PASS] Expected at least one TRC channel to trip.");
+        else                        $display("[FAIL] Expected TRC channel to trip, but oTRC_ERR stayed 0000.");
         
+
         $display("\n======= SIMULATION COMPLETED =======");
         $finish;
     end
