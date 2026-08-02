@@ -1,30 +1,3 @@
-// =============================================================
-// Module : delay_paths  (UPDATED -- 3-bit status code for oTRC_MUX)
-//
-// History:
-//   1. Instance names (u_trc0..u_trc3) no longer collide with net
-//      names (trc0_err..trc3_err) -- the original file used the
-//      SAME identifiers for both, which is illegal Verilog.
-//   2. Output changed from a single MUX'd bit to a 4-bit PARALLEL
-//      error bus oTRC_ERR[3:0], since failure_estimation.sv needs
-//      the full thermometer-coded vector, not one bit at a time.
-//   3. Inverter counts corrected to 192/144/96/48 per the spec table.
-//   4. Added oTRC_MUX + iTRC_SEL[1:0] alongside oTRC_ERR for
-//      per-channel calibration/observation -- does NOT replace
-//      oTRC_ERR (failure_estimation still needs the full parallel
-//      bus).
-//   5. UPDATE: oTRC_MUX is now a 3-bit STATUS CODE rather than a
-//      raw bit/mask:
-//        000 = normal     (selected channel is NOT tripped)
-//        001 = TRC0 trip  (iTRC_SEL=00 and oTRC_ERR[0]=1)
-//        010 = TRC1 trip  (iTRC_SEL=01 and oTRC_ERR[1]=1)
-//        011 = TRC2 trip  (iTRC_SEL=10 and oTRC_ERR[2]=1)
-//        100 = TRC3 trip  (iTRC_SEL=11 and oTRC_ERR[3]=1)
-//        101-111 = reserved (unused, only 4 channels exist)
-//      iTRC_SEL still selects which channel is being observed;
-//      oTRC_MUX now reports "normal" or "which channel + tripped"
-//      as a single readable code instead of a bit position.
-// =============================================================
 module delay_paths (
     input  logic       iCLK,
     input  logic       iRST,
@@ -37,9 +10,6 @@ module delay_paths (
 
     localparam real DELAY_ELEMENT = 0.05; // ns, sim-only per-inverter delay
 
-    /* ------------------------------------------------------------
-       TRC CHANNELS -- run in parallel at all times, per spec
-    ------------------------------------------------------------ */
     trc_behavioral_chain #(
         .NUM_INVERTERS(192),   // Extreme sensitivity
         .DELAY_VAL(DELAY_ELEMENT)

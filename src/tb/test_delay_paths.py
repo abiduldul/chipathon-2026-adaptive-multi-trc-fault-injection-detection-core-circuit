@@ -1,18 +1,3 @@
-"""
-cocotb testbench for the Multi-TRC block (delay_paths.sv + trc_behavioral_chain.sv)
-
-Scenarios:
-  1. Nominal clock (100 MHz, 10 ns period) -> oTRC_ERR should stay 0000
-     once the launch/capture pipeline has settled.
-  2. Glitch injection: clock sped up well beyond what the delay chains
-     can track -> at least the more sensitive channels (TRC0/TRC1, the
-     longer chains) should trip (oTRC_ERR != 0).
-  3. Recovery back to nominal clock -> oTRC_ERR should clear again.
-
-Run with:  make            (pre-synthesis RTL)
-           make GATES=1    (post-synthesis gate-level netlist)
-"""
-
 import cocotb
 from cocotb.clock import Clock
 from cocotb.triggers import Timer, RisingEdge
@@ -57,9 +42,6 @@ async def test_glitch_injection(dut):
     for _ in range(10):
         await RisingEdge(dut.iCLK)
 
-    # Swap to a much faster clock -- this starves the delay chains of
-    # time to settle before the next capture edge, which is exactly the
-    # "overclocking glitch attack" scenario from the reference slides.
     fast_clock = Clock(dut.iCLK, 1, unit="ns")   # 1 ns = 1 GHz (way too fast)
     cocotb.start_soon(fast_clock.start())
 
