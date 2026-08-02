@@ -7,7 +7,7 @@ BUILD_DIR   = $(SIM_DIR)/build
 RTL_DIR     = src/rtl
 TB_DIR      = src/tb
 
-TOP        ?= spi_slave_interface
+TOP        ?= fault_injection_detection_core
 BIN         = $(BUILD_DIR)/Vtb_$(TOP)
 SRCS        = $(shell find $(RTL_DIR) -name "*.sv") \
               $(TB_DIR)/tb_$(TOP).sv

@@ -11,7 +11,7 @@ module register (
     input  logic [1:0]  iACTIVE_TRC,
     input  logic [3:0]  iFAILURE_EST,
 
-    output logic        oVGD_EN, oAUTO_CAL_EN, oINT_EN, oSOFT_RESET_OUT,
+    output logic        oVGD_EN, oAUTO_CAL_EN, oINT_EN, oSOFT_RESET_OUT, oINT_ACK,
     output logic [1:0]  oTRC_SEL,
     output logic [3:0]  oTHRES_VAL, oCAL_PERIOD
 );
@@ -70,5 +70,6 @@ module register (
     ------------------------------------------------------------ */
     assign we_config    = (reg_write && (reg_addr == ADDR_CONFIG));
     assign we_threshold = (reg_write && (reg_addr == ADDR_THRESHOLD));
+    assign oINT_ACK     = int_ack;
 
 endmodule
