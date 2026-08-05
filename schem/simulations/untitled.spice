@@ -1,0 +1,628 @@
+** sch_path: /foss/designs/digInjection/trc_schem/untitled.sch
+**.subckt untitled vout1 vout2 vout3 vout vout4 vout5 vout6
+*.iopin vout1
+*.iopin vout2
+*.iopin vout3
+*.iopin vout
+*.iopin vout4
+*.iopin vout5
+*.iopin vout6
+x5 net2 12_in clk_in 12_in tiehi VDD VSS sg13g2_dfrbp_1
+x6 xor_out 12_in 12_out VDD VSS sg13g2_xor2_1
+x8 vout net1 clk_in xor_out tiehi VDD VSS sg13g2_dfrbp_1
+V1 clk_in 0 PULSE(0 1.8 0 100p 100p 5n 10n)
+* noconn #net1
+V3 VSS 0 0
+V2 tiehi 0 1.8
+* noconn #net2
+x1 net3 12_in VDD VSS sg13g2_inv_1
+x2 net5 net3 VDD VSS sg13g2_inv_1
+x3 net4 net5 VDD VSS sg13g2_inv_1
+x4 net7 net4 VDD VSS sg13g2_inv_1
+x7 net6 net7 VDD VSS sg13g2_inv_1
+x9 net9 net6 VDD VSS sg13g2_inv_1
+x10 net8 net9 VDD VSS sg13g2_inv_1
+x11 net11 net8 VDD VSS sg13g2_inv_1
+x12 net10 net11 VDD VSS sg13g2_inv_1
+x13 net13 net10 VDD VSS sg13g2_inv_1
+x14 net12 net13 VDD VSS sg13g2_inv_1
+x15 12_out net12 VDD VSS sg13g2_inv_1
+x16 net14 24_in VDD VSS sg13g2_inv_1
+x17 net16 net14 VDD VSS sg13g2_inv_1
+x18 net15 net16 VDD VSS sg13g2_inv_1
+x19 net18 net15 VDD VSS sg13g2_inv_1
+x20 net17 net18 VDD VSS sg13g2_inv_1
+x21 net20 net17 VDD VSS sg13g2_inv_1
+x22 net19 net20 VDD VSS sg13g2_inv_1
+x23 net22 net19 VDD VSS sg13g2_inv_1
+x24 net21 net22 VDD VSS sg13g2_inv_1
+x25 net24 net21 VDD VSS sg13g2_inv_1
+x26 net23 net24 VDD VSS sg13g2_inv_1
+x27 net26 net23 VDD VSS sg13g2_inv_1
+x28 net25 net26 VDD VSS sg13g2_inv_1
+x29 net28 net25 VDD VSS sg13g2_inv_1
+x30 net27 net28 VDD VSS sg13g2_inv_1
+x31 net30 net27 VDD VSS sg13g2_inv_1
+x32 net29 net30 VDD VSS sg13g2_inv_1
+x33 net32 net29 VDD VSS sg13g2_inv_1
+x34 net31 net32 VDD VSS sg13g2_inv_1
+x35 net34 net31 VDD VSS sg13g2_inv_1
+x36 net33 net34 VDD VSS sg13g2_inv_1
+x37 net36 net33 VDD VSS sg13g2_inv_1
+x38 net35 net36 VDD VSS sg13g2_inv_1
+x39 24_out net35 VDD VSS sg13g2_inv_1
+x40 net37 36_in VDD VSS sg13g2_inv_1
+x41 net39 net37 VDD VSS sg13g2_inv_1
+x42 net38 net39 VDD VSS sg13g2_inv_1
+x43 net41 net38 VDD VSS sg13g2_inv_1
+x44 net40 net41 VDD VSS sg13g2_inv_1
+x45 net43 net40 VDD VSS sg13g2_inv_1
+x46 net42 net43 VDD VSS sg13g2_inv_1
+x47 net45 net42 VDD VSS sg13g2_inv_1
+x48 net44 net45 VDD VSS sg13g2_inv_1
+x49 net47 net44 VDD VSS sg13g2_inv_1
+x50 net46 net47 VDD VSS sg13g2_inv_1
+x51 net49 net46 VDD VSS sg13g2_inv_1
+x52 net48 net49 VDD VSS sg13g2_inv_1
+x53 net51 net48 VDD VSS sg13g2_inv_1
+x54 net50 net51 VDD VSS sg13g2_inv_1
+x55 net53 net50 VDD VSS sg13g2_inv_1
+x56 net52 net53 VDD VSS sg13g2_inv_1
+x57 net55 net52 VDD VSS sg13g2_inv_1
+x58 net54 net55 VDD VSS sg13g2_inv_1
+x59 net57 net54 VDD VSS sg13g2_inv_1
+x60 net56 net57 VDD VSS sg13g2_inv_1
+x61 net59 net56 VDD VSS sg13g2_inv_1
+x62 net58 net59 VDD VSS sg13g2_inv_1
+x63 net71 net58 VDD VSS sg13g2_inv_1
+x64 net60 net71 VDD VSS sg13g2_inv_1
+x65 net62 net60 VDD VSS sg13g2_inv_1
+x66 net61 net62 VDD VSS sg13g2_inv_1
+x67 net64 net61 VDD VSS sg13g2_inv_1
+x68 net63 net64 VDD VSS sg13g2_inv_1
+x69 net66 net63 VDD VSS sg13g2_inv_1
+x70 net65 net66 VDD VSS sg13g2_inv_1
+x71 net68 net65 VDD VSS sg13g2_inv_1
+x72 net67 net68 VDD VSS sg13g2_inv_1
+x73 net70 net67 VDD VSS sg13g2_inv_1
+x74 net69 net70 VDD VSS sg13g2_inv_1
+x75 36_out net69 VDD VSS sg13g2_inv_1
+x76 net72 48_in VDD VSS sg13g2_inv_1
+x77 net74 net72 VDD VSS sg13g2_inv_1
+x78 net73 net74 VDD VSS sg13g2_inv_1
+x79 net76 net73 VDD VSS sg13g2_inv_1
+x80 net75 net76 VDD VSS sg13g2_inv_1
+x81 net78 net75 VDD VSS sg13g2_inv_1
+x82 net77 net78 VDD VSS sg13g2_inv_1
+x83 net80 net77 VDD VSS sg13g2_inv_1
+x84 net79 net80 VDD VSS sg13g2_inv_1
+x85 net82 net79 VDD VSS sg13g2_inv_1
+x86 net81 net82 VDD VSS sg13g2_inv_1
+x87 net84 net81 VDD VSS sg13g2_inv_1
+x88 net83 net84 VDD VSS sg13g2_inv_1
+x89 net86 net83 VDD VSS sg13g2_inv_1
+x90 net85 net86 VDD VSS sg13g2_inv_1
+x91 net88 net85 VDD VSS sg13g2_inv_1
+x92 net87 net88 VDD VSS sg13g2_inv_1
+x93 net90 net87 VDD VSS sg13g2_inv_1
+x94 net89 net90 VDD VSS sg13g2_inv_1
+x95 net92 net89 VDD VSS sg13g2_inv_1
+x96 net91 net92 VDD VSS sg13g2_inv_1
+x97 net94 net91 VDD VSS sg13g2_inv_1
+x98 net93 net94 VDD VSS sg13g2_inv_1
+x99 net95 net93 VDD VSS sg13g2_inv_1
+x100 net96 net95 VDD VSS sg13g2_inv_1
+x101 net98 net96 VDD VSS sg13g2_inv_1
+x102 net97 net98 VDD VSS sg13g2_inv_1
+x103 net100 net97 VDD VSS sg13g2_inv_1
+x104 net99 net100 VDD VSS sg13g2_inv_1
+x105 net102 net99 VDD VSS sg13g2_inv_1
+x106 net101 net102 VDD VSS sg13g2_inv_1
+x107 net104 net101 VDD VSS sg13g2_inv_1
+x108 net103 net104 VDD VSS sg13g2_inv_1
+x109 net106 net103 VDD VSS sg13g2_inv_1
+x110 net105 net106 VDD VSS sg13g2_inv_1
+x111 net108 net105 VDD VSS sg13g2_inv_1
+x112 net107 net108 VDD VSS sg13g2_inv_1
+x113 net110 net107 VDD VSS sg13g2_inv_1
+x114 net109 net110 VDD VSS sg13g2_inv_1
+x115 net112 net109 VDD VSS sg13g2_inv_1
+x116 net111 net112 VDD VSS sg13g2_inv_1
+x117 net114 net111 VDD VSS sg13g2_inv_1
+x118 net113 net114 VDD VSS sg13g2_inv_1
+x119 net116 net113 VDD VSS sg13g2_inv_1
+x120 net115 net116 VDD VSS sg13g2_inv_1
+x121 net118 net115 VDD VSS sg13g2_inv_1
+x122 net117 net118 VDD VSS sg13g2_inv_1
+x123 48_out net117 VDD VSS sg13g2_inv_1
+x124 net120 24_in clk_in 24_in tiehi VDD VSS sg13g2_dfrbp_1
+x125 xor_out1 24_in 24_out VDD VSS sg13g2_xor2_1
+x126 vout1 net119 clk_in xor_out1 tiehi VDD VSS sg13g2_dfrbp_1
+* noconn #net119
+* noconn #net120
+x127 net122 36_in clk_in 36_in tiehi VDD VSS sg13g2_dfrbp_1
+x128 xor_out2 36_in 36_out VDD VSS sg13g2_xor2_1
+x129 vout2 net121 clk_in xor_out2 tiehi VDD VSS sg13g2_dfrbp_1
+* noconn #net121
+* noconn #net122
+x130 net124 48_in clk_in 48_in tiehi VDD VSS sg13g2_dfrbp_1
+x131 xor_out3 48_in 48_out VDD VSS sg13g2_xor2_1
+x132 vout3 net123 clk_in xor_out3 tiehi VDD VSS sg13g2_dfrbp_1
+* noconn #net123
+* noconn #net124
+x133 net125 96_in VDD VSS sg13g2_inv_1
+x134 net127 net125 VDD VSS sg13g2_inv_1
+x135 net126 net127 VDD VSS sg13g2_inv_1
+x136 net129 net126 VDD VSS sg13g2_inv_1
+x137 net128 net129 VDD VSS sg13g2_inv_1
+x138 net131 net128 VDD VSS sg13g2_inv_1
+x139 net130 net131 VDD VSS sg13g2_inv_1
+x140 net133 net130 VDD VSS sg13g2_inv_1
+x141 net132 net133 VDD VSS sg13g2_inv_1
+x142 net135 net132 VDD VSS sg13g2_inv_1
+x143 net134 net135 VDD VSS sg13g2_inv_1
+x144 net137 net134 VDD VSS sg13g2_inv_1
+x145 net136 net137 VDD VSS sg13g2_inv_1
+x146 net139 net136 VDD VSS sg13g2_inv_1
+x147 net138 net139 VDD VSS sg13g2_inv_1
+x148 net141 net138 VDD VSS sg13g2_inv_1
+x149 net140 net141 VDD VSS sg13g2_inv_1
+x150 net143 net140 VDD VSS sg13g2_inv_1
+x151 net142 net143 VDD VSS sg13g2_inv_1
+x152 net145 net142 VDD VSS sg13g2_inv_1
+x153 net144 net145 VDD VSS sg13g2_inv_1
+x154 net147 net144 VDD VSS sg13g2_inv_1
+x155 net146 net147 VDD VSS sg13g2_inv_1
+x156 net148 net146 VDD VSS sg13g2_inv_1
+x157 net149 net148 VDD VSS sg13g2_inv_1
+x158 net151 net149 VDD VSS sg13g2_inv_1
+x159 net150 net151 VDD VSS sg13g2_inv_1
+x160 net153 net150 VDD VSS sg13g2_inv_1
+x161 net152 net153 VDD VSS sg13g2_inv_1
+x162 net155 net152 VDD VSS sg13g2_inv_1
+x163 net154 net155 VDD VSS sg13g2_inv_1
+x164 net157 net154 VDD VSS sg13g2_inv_1
+x165 net156 net157 VDD VSS sg13g2_inv_1
+x166 net159 net156 VDD VSS sg13g2_inv_1
+x167 net158 net159 VDD VSS sg13g2_inv_1
+x168 net161 net158 VDD VSS sg13g2_inv_1
+x169 net160 net161 VDD VSS sg13g2_inv_1
+x170 net163 net160 VDD VSS sg13g2_inv_1
+x171 net162 net163 VDD VSS sg13g2_inv_1
+x172 net165 net162 VDD VSS sg13g2_inv_1
+x173 net164 net165 VDD VSS sg13g2_inv_1
+x174 net167 net164 VDD VSS sg13g2_inv_1
+x175 net166 net167 VDD VSS sg13g2_inv_1
+x176 net169 net166 VDD VSS sg13g2_inv_1
+x177 net168 net169 VDD VSS sg13g2_inv_1
+x178 net171 net168 VDD VSS sg13g2_inv_1
+x179 net170 net171 VDD VSS sg13g2_inv_1
+x180 net172 net170 VDD VSS sg13g2_inv_1
+x181 net173 net172 VDD VSS sg13g2_inv_1
+x182 net175 net173 VDD VSS sg13g2_inv_1
+x183 net174 net175 VDD VSS sg13g2_inv_1
+x184 net177 net174 VDD VSS sg13g2_inv_1
+x185 net176 net177 VDD VSS sg13g2_inv_1
+x186 net179 net176 VDD VSS sg13g2_inv_1
+x187 net178 net179 VDD VSS sg13g2_inv_1
+x188 net181 net178 VDD VSS sg13g2_inv_1
+x189 net180 net181 VDD VSS sg13g2_inv_1
+x190 net183 net180 VDD VSS sg13g2_inv_1
+x191 net182 net183 VDD VSS sg13g2_inv_1
+x192 net185 net182 VDD VSS sg13g2_inv_1
+x193 net184 net185 VDD VSS sg13g2_inv_1
+x194 net187 net184 VDD VSS sg13g2_inv_1
+x195 net186 net187 VDD VSS sg13g2_inv_1
+x196 net189 net186 VDD VSS sg13g2_inv_1
+x197 net188 net189 VDD VSS sg13g2_inv_1
+x198 net191 net188 VDD VSS sg13g2_inv_1
+x199 net190 net191 VDD VSS sg13g2_inv_1
+x200 net193 net190 VDD VSS sg13g2_inv_1
+x201 net192 net193 VDD VSS sg13g2_inv_1
+x202 net195 net192 VDD VSS sg13g2_inv_1
+x203 net194 net195 VDD VSS sg13g2_inv_1
+x204 net196 net194 VDD VSS sg13g2_inv_1
+x205 net197 net196 VDD VSS sg13g2_inv_1
+x206 net199 net197 VDD VSS sg13g2_inv_1
+x207 net198 net199 VDD VSS sg13g2_inv_1
+x208 net201 net198 VDD VSS sg13g2_inv_1
+x209 net200 net201 VDD VSS sg13g2_inv_1
+x210 net203 net200 VDD VSS sg13g2_inv_1
+x211 net202 net203 VDD VSS sg13g2_inv_1
+x212 net205 net202 VDD VSS sg13g2_inv_1
+x213 net204 net205 VDD VSS sg13g2_inv_1
+x214 net207 net204 VDD VSS sg13g2_inv_1
+x215 net206 net207 VDD VSS sg13g2_inv_1
+x216 net209 net206 VDD VSS sg13g2_inv_1
+x217 net208 net209 VDD VSS sg13g2_inv_1
+x218 net211 net208 VDD VSS sg13g2_inv_1
+x219 net210 net211 VDD VSS sg13g2_inv_1
+x220 net213 net210 VDD VSS sg13g2_inv_1
+x221 net212 net213 VDD VSS sg13g2_inv_1
+x222 net215 net212 VDD VSS sg13g2_inv_1
+x223 net214 net215 VDD VSS sg13g2_inv_1
+x224 net217 net214 VDD VSS sg13g2_inv_1
+x225 net216 net217 VDD VSS sg13g2_inv_1
+x226 net219 net216 VDD VSS sg13g2_inv_1
+x227 net218 net219 VDD VSS sg13g2_inv_1
+x228 96_out net218 VDD VSS sg13g2_inv_1
+x229 net221 96_in clk_in 96_in tiehi VDD VSS sg13g2_dfrbp_1
+x230 xor_out4 96_in 96_out VDD VSS sg13g2_xor2_1
+x231 vout4 net220 clk_in xor_out4 tiehi VDD VSS sg13g2_dfrbp_1
+* noconn #net220
+* noconn #net221
+x232 net223 144_in clk_in 144_in tiehi VDD VSS sg13g2_dfrbp_1
+x233 xor_out5 144_in 144_out VDD VSS sg13g2_xor2_1
+x234 vout5 net222 clk_in xor_out5 tiehi VDD VSS sg13g2_dfrbp_1
+* noconn #net222
+* noconn #net223
+x235 net224 192_in VDD VSS sg13g2_inv_1
+x236 net226 net224 VDD VSS sg13g2_inv_1
+x237 net225 net226 VDD VSS sg13g2_inv_1
+x238 net228 net225 VDD VSS sg13g2_inv_1
+x239 net227 net228 VDD VSS sg13g2_inv_1
+x240 net230 net227 VDD VSS sg13g2_inv_1
+x241 net229 net230 VDD VSS sg13g2_inv_1
+x242 net232 net229 VDD VSS sg13g2_inv_1
+x243 net231 net232 VDD VSS sg13g2_inv_1
+x244 net234 net231 VDD VSS sg13g2_inv_1
+x245 net233 net234 VDD VSS sg13g2_inv_1
+x246 net236 net233 VDD VSS sg13g2_inv_1
+x247 net235 net236 VDD VSS sg13g2_inv_1
+x248 net238 net235 VDD VSS sg13g2_inv_1
+x249 net237 net238 VDD VSS sg13g2_inv_1
+x250 net240 net237 VDD VSS sg13g2_inv_1
+x251 net239 net240 VDD VSS sg13g2_inv_1
+x252 net242 net239 VDD VSS sg13g2_inv_1
+x253 net241 net242 VDD VSS sg13g2_inv_1
+x254 net244 net241 VDD VSS sg13g2_inv_1
+x255 net243 net244 VDD VSS sg13g2_inv_1
+x256 net246 net243 VDD VSS sg13g2_inv_1
+x257 net245 net246 VDD VSS sg13g2_inv_1
+x258 net247 net245 VDD VSS sg13g2_inv_1
+x259 net248 net247 VDD VSS sg13g2_inv_1
+x260 net250 net248 VDD VSS sg13g2_inv_1
+x261 net249 net250 VDD VSS sg13g2_inv_1
+x262 net252 net249 VDD VSS sg13g2_inv_1
+x263 net251 net252 VDD VSS sg13g2_inv_1
+x264 net254 net251 VDD VSS sg13g2_inv_1
+x265 net253 net254 VDD VSS sg13g2_inv_1
+x266 net256 net253 VDD VSS sg13g2_inv_1
+x267 net255 net256 VDD VSS sg13g2_inv_1
+x268 net258 net255 VDD VSS sg13g2_inv_1
+x269 net257 net258 VDD VSS sg13g2_inv_1
+x270 net260 net257 VDD VSS sg13g2_inv_1
+x271 net259 net260 VDD VSS sg13g2_inv_1
+x272 net262 net259 VDD VSS sg13g2_inv_1
+x273 net261 net262 VDD VSS sg13g2_inv_1
+x274 net264 net261 VDD VSS sg13g2_inv_1
+x275 net263 net264 VDD VSS sg13g2_inv_1
+x276 net266 net263 VDD VSS sg13g2_inv_1
+x277 net265 net266 VDD VSS sg13g2_inv_1
+x278 net268 net265 VDD VSS sg13g2_inv_1
+x279 net267 net268 VDD VSS sg13g2_inv_1
+x280 net270 net267 VDD VSS sg13g2_inv_1
+x281 net269 net270 VDD VSS sg13g2_inv_1
+x282 net271 net269 VDD VSS sg13g2_inv_1
+x283 net272 net271 VDD VSS sg13g2_inv_1
+x284 net274 net272 VDD VSS sg13g2_inv_1
+x285 net273 net274 VDD VSS sg13g2_inv_1
+x286 net276 net273 VDD VSS sg13g2_inv_1
+x287 net275 net276 VDD VSS sg13g2_inv_1
+x288 net278 net275 VDD VSS sg13g2_inv_1
+x289 net277 net278 VDD VSS sg13g2_inv_1
+x290 net280 net277 VDD VSS sg13g2_inv_1
+x291 net279 net280 VDD VSS sg13g2_inv_1
+x292 net282 net279 VDD VSS sg13g2_inv_1
+x293 net281 net282 VDD VSS sg13g2_inv_1
+x294 net284 net281 VDD VSS sg13g2_inv_1
+x295 net283 net284 VDD VSS sg13g2_inv_1
+x296 net286 net283 VDD VSS sg13g2_inv_1
+x297 net285 net286 VDD VSS sg13g2_inv_1
+x298 net288 net285 VDD VSS sg13g2_inv_1
+x299 net287 net288 VDD VSS sg13g2_inv_1
+x300 net290 net287 VDD VSS sg13g2_inv_1
+x301 net289 net290 VDD VSS sg13g2_inv_1
+x302 net292 net289 VDD VSS sg13g2_inv_1
+x303 net291 net292 VDD VSS sg13g2_inv_1
+x304 net294 net291 VDD VSS sg13g2_inv_1
+x305 net293 net294 VDD VSS sg13g2_inv_1
+x306 net295 net293 VDD VSS sg13g2_inv_1
+x307 net296 net295 VDD VSS sg13g2_inv_1
+x308 net298 net296 VDD VSS sg13g2_inv_1
+x309 net297 net298 VDD VSS sg13g2_inv_1
+x310 net300 net297 VDD VSS sg13g2_inv_1
+x311 net299 net300 VDD VSS sg13g2_inv_1
+x312 net302 net299 VDD VSS sg13g2_inv_1
+x313 net301 net302 VDD VSS sg13g2_inv_1
+x314 net304 net301 VDD VSS sg13g2_inv_1
+x315 net303 net304 VDD VSS sg13g2_inv_1
+x316 net306 net303 VDD VSS sg13g2_inv_1
+x317 net305 net306 VDD VSS sg13g2_inv_1
+x318 net308 net305 VDD VSS sg13g2_inv_1
+x319 net307 net308 VDD VSS sg13g2_inv_1
+x320 net310 net307 VDD VSS sg13g2_inv_1
+x321 net309 net310 VDD VSS sg13g2_inv_1
+x322 net312 net309 VDD VSS sg13g2_inv_1
+x323 net311 net312 VDD VSS sg13g2_inv_1
+x324 net314 net311 VDD VSS sg13g2_inv_1
+x325 net313 net314 VDD VSS sg13g2_inv_1
+x326 net316 net313 VDD VSS sg13g2_inv_1
+x327 net315 net316 VDD VSS sg13g2_inv_1
+x328 net318 net315 VDD VSS sg13g2_inv_1
+x329 net317 net318 VDD VSS sg13g2_inv_1
+x330 net319 net317 VDD VSS sg13g2_inv_1
+x331 net320 net319 VDD VSS sg13g2_inv_1
+x332 net322 net320 VDD VSS sg13g2_inv_1
+x333 net321 net322 VDD VSS sg13g2_inv_1
+x334 net324 net321 VDD VSS sg13g2_inv_1
+x335 net323 net324 VDD VSS sg13g2_inv_1
+x336 net326 net323 VDD VSS sg13g2_inv_1
+x337 net325 net326 VDD VSS sg13g2_inv_1
+x338 net328 net325 VDD VSS sg13g2_inv_1
+x339 net327 net328 VDD VSS sg13g2_inv_1
+x340 net330 net327 VDD VSS sg13g2_inv_1
+x341 net329 net330 VDD VSS sg13g2_inv_1
+x342 net332 net329 VDD VSS sg13g2_inv_1
+x343 net331 net332 VDD VSS sg13g2_inv_1
+x344 net334 net331 VDD VSS sg13g2_inv_1
+x345 net333 net334 VDD VSS sg13g2_inv_1
+x346 net336 net333 VDD VSS sg13g2_inv_1
+x347 net335 net336 VDD VSS sg13g2_inv_1
+x348 net338 net335 VDD VSS sg13g2_inv_1
+x349 net337 net338 VDD VSS sg13g2_inv_1
+x350 net340 net337 VDD VSS sg13g2_inv_1
+x351 net339 net340 VDD VSS sg13g2_inv_1
+x352 net342 net339 VDD VSS sg13g2_inv_1
+x353 net341 net342 VDD VSS sg13g2_inv_1
+x354 net343 net341 VDD VSS sg13g2_inv_1
+x355 net344 net343 VDD VSS sg13g2_inv_1
+x356 net346 net344 VDD VSS sg13g2_inv_1
+x357 net345 net346 VDD VSS sg13g2_inv_1
+x358 net348 net345 VDD VSS sg13g2_inv_1
+x359 net347 net348 VDD VSS sg13g2_inv_1
+x360 net350 net347 VDD VSS sg13g2_inv_1
+x361 net349 net350 VDD VSS sg13g2_inv_1
+x362 net352 net349 VDD VSS sg13g2_inv_1
+x363 net351 net352 VDD VSS sg13g2_inv_1
+x364 net354 net351 VDD VSS sg13g2_inv_1
+x365 net353 net354 VDD VSS sg13g2_inv_1
+x366 net356 net353 VDD VSS sg13g2_inv_1
+x367 net355 net356 VDD VSS sg13g2_inv_1
+x368 net358 net355 VDD VSS sg13g2_inv_1
+x369 net357 net358 VDD VSS sg13g2_inv_1
+x370 net360 net357 VDD VSS sg13g2_inv_1
+x371 net359 net360 VDD VSS sg13g2_inv_1
+x372 net362 net359 VDD VSS sg13g2_inv_1
+x373 net361 net362 VDD VSS sg13g2_inv_1
+x374 net364 net361 VDD VSS sg13g2_inv_1
+x375 net363 net364 VDD VSS sg13g2_inv_1
+x376 net366 net363 VDD VSS sg13g2_inv_1
+x377 net365 net366 VDD VSS sg13g2_inv_1
+x378 net367 net365 VDD VSS sg13g2_inv_1
+x379 net368 net367 VDD VSS sg13g2_inv_1
+x380 net370 net368 VDD VSS sg13g2_inv_1
+x381 net369 net370 VDD VSS sg13g2_inv_1
+x382 net372 net369 VDD VSS sg13g2_inv_1
+x383 net371 net372 VDD VSS sg13g2_inv_1
+x384 net374 net371 VDD VSS sg13g2_inv_1
+x385 net373 net374 VDD VSS sg13g2_inv_1
+x386 net376 net373 VDD VSS sg13g2_inv_1
+x387 net375 net376 VDD VSS sg13g2_inv_1
+x388 net378 net375 VDD VSS sg13g2_inv_1
+x389 net377 net378 VDD VSS sg13g2_inv_1
+x390 net380 net377 VDD VSS sg13g2_inv_1
+x391 net379 net380 VDD VSS sg13g2_inv_1
+x392 net382 net379 VDD VSS sg13g2_inv_1
+x393 net381 net382 VDD VSS sg13g2_inv_1
+x394 net384 net381 VDD VSS sg13g2_inv_1
+x395 net383 net384 VDD VSS sg13g2_inv_1
+x396 net386 net383 VDD VSS sg13g2_inv_1
+x397 net385 net386 VDD VSS sg13g2_inv_1
+x398 net388 net385 VDD VSS sg13g2_inv_1
+x399 net387 net388 VDD VSS sg13g2_inv_1
+x400 net390 net387 VDD VSS sg13g2_inv_1
+x401 net389 net390 VDD VSS sg13g2_inv_1
+x402 net391 net389 VDD VSS sg13g2_inv_1
+x403 net392 net391 VDD VSS sg13g2_inv_1
+x404 net394 net392 VDD VSS sg13g2_inv_1
+x405 net393 net394 VDD VSS sg13g2_inv_1
+x406 net396 net393 VDD VSS sg13g2_inv_1
+x407 net395 net396 VDD VSS sg13g2_inv_1
+x408 net398 net395 VDD VSS sg13g2_inv_1
+x409 net397 net398 VDD VSS sg13g2_inv_1
+x410 net400 net397 VDD VSS sg13g2_inv_1
+x411 net399 net400 VDD VSS sg13g2_inv_1
+x412 net402 net399 VDD VSS sg13g2_inv_1
+x413 net401 net402 VDD VSS sg13g2_inv_1
+x414 net404 net401 VDD VSS sg13g2_inv_1
+x415 net403 net404 VDD VSS sg13g2_inv_1
+x416 net406 net403 VDD VSS sg13g2_inv_1
+x417 net405 net406 VDD VSS sg13g2_inv_1
+x418 net408 net405 VDD VSS sg13g2_inv_1
+x419 net407 net408 VDD VSS sg13g2_inv_1
+x420 net410 net407 VDD VSS sg13g2_inv_1
+x421 net409 net410 VDD VSS sg13g2_inv_1
+x422 net412 net409 VDD VSS sg13g2_inv_1
+x423 net411 net412 VDD VSS sg13g2_inv_1
+x424 net414 net411 VDD VSS sg13g2_inv_1
+x425 net413 net414 VDD VSS sg13g2_inv_1
+x426 192_out net413 VDD VSS sg13g2_inv_1
+x427 net416 192_in clk_in 192_in tiehi VDD VSS sg13g2_dfrbp_1
+x428 xor_out6 192_in 192_out VDD VSS sg13g2_xor2_1
+x429 vout6 net415 clk_in xor_out6 tiehi VDD VSS sg13g2_dfrbp_1
+* noconn #net415
+* noconn #net416
+x430 net417 144_in VDD VSS sg13g2_inv_1
+x431 net419 net417 VDD VSS sg13g2_inv_1
+x432 net418 net419 VDD VSS sg13g2_inv_1
+x433 net421 net418 VDD VSS sg13g2_inv_1
+x434 net420 net421 VDD VSS sg13g2_inv_1
+x435 net423 net420 VDD VSS sg13g2_inv_1
+x436 net422 net423 VDD VSS sg13g2_inv_1
+x437 net425 net422 VDD VSS sg13g2_inv_1
+x438 net424 net425 VDD VSS sg13g2_inv_1
+x439 net427 net424 VDD VSS sg13g2_inv_1
+x440 net426 net427 VDD VSS sg13g2_inv_1
+x441 net429 net426 VDD VSS sg13g2_inv_1
+x442 net428 net429 VDD VSS sg13g2_inv_1
+x443 net431 net428 VDD VSS sg13g2_inv_1
+x444 net430 net431 VDD VSS sg13g2_inv_1
+x445 net433 net430 VDD VSS sg13g2_inv_1
+x446 net432 net433 VDD VSS sg13g2_inv_1
+x447 net435 net432 VDD VSS sg13g2_inv_1
+x448 net434 net435 VDD VSS sg13g2_inv_1
+x449 net437 net434 VDD VSS sg13g2_inv_1
+x450 net436 net437 VDD VSS sg13g2_inv_1
+x451 net439 net436 VDD VSS sg13g2_inv_1
+x452 net438 net439 VDD VSS sg13g2_inv_1
+x453 net440 net438 VDD VSS sg13g2_inv_1
+x454 net441 net440 VDD VSS sg13g2_inv_1
+x455 net443 net441 VDD VSS sg13g2_inv_1
+x456 net442 net443 VDD VSS sg13g2_inv_1
+x457 net445 net442 VDD VSS sg13g2_inv_1
+x458 net444 net445 VDD VSS sg13g2_inv_1
+x459 net447 net444 VDD VSS sg13g2_inv_1
+x460 net446 net447 VDD VSS sg13g2_inv_1
+x461 net449 net446 VDD VSS sg13g2_inv_1
+x462 net448 net449 VDD VSS sg13g2_inv_1
+x463 net451 net448 VDD VSS sg13g2_inv_1
+x464 net450 net451 VDD VSS sg13g2_inv_1
+x465 net453 net450 VDD VSS sg13g2_inv_1
+x466 net452 net453 VDD VSS sg13g2_inv_1
+x467 net455 net452 VDD VSS sg13g2_inv_1
+x468 net454 net455 VDD VSS sg13g2_inv_1
+x469 net457 net454 VDD VSS sg13g2_inv_1
+x470 net456 net457 VDD VSS sg13g2_inv_1
+x471 net459 net456 VDD VSS sg13g2_inv_1
+x472 net458 net459 VDD VSS sg13g2_inv_1
+x473 net461 net458 VDD VSS sg13g2_inv_1
+x474 net460 net461 VDD VSS sg13g2_inv_1
+x475 net463 net460 VDD VSS sg13g2_inv_1
+x476 net462 net463 VDD VSS sg13g2_inv_1
+x477 net464 net462 VDD VSS sg13g2_inv_1
+x478 net465 net464 VDD VSS sg13g2_inv_1
+x479 net467 net465 VDD VSS sg13g2_inv_1
+x480 net466 net467 VDD VSS sg13g2_inv_1
+x481 net469 net466 VDD VSS sg13g2_inv_1
+x482 net468 net469 VDD VSS sg13g2_inv_1
+x483 net471 net468 VDD VSS sg13g2_inv_1
+x484 net470 net471 VDD VSS sg13g2_inv_1
+x485 net473 net470 VDD VSS sg13g2_inv_1
+x486 net472 net473 VDD VSS sg13g2_inv_1
+x487 net475 net472 VDD VSS sg13g2_inv_1
+x488 net474 net475 VDD VSS sg13g2_inv_1
+x489 net477 net474 VDD VSS sg13g2_inv_1
+x490 net476 net477 VDD VSS sg13g2_inv_1
+x491 net479 net476 VDD VSS sg13g2_inv_1
+x492 net478 net479 VDD VSS sg13g2_inv_1
+x493 net481 net478 VDD VSS sg13g2_inv_1
+x494 net480 net481 VDD VSS sg13g2_inv_1
+x495 net483 net480 VDD VSS sg13g2_inv_1
+x496 net482 net483 VDD VSS sg13g2_inv_1
+x497 net485 net482 VDD VSS sg13g2_inv_1
+x498 net484 net485 VDD VSS sg13g2_inv_1
+x499 net487 net484 VDD VSS sg13g2_inv_1
+x500 net486 net487 VDD VSS sg13g2_inv_1
+x501 net488 net486 VDD VSS sg13g2_inv_1
+x502 net489 net488 VDD VSS sg13g2_inv_1
+x503 net491 net489 VDD VSS sg13g2_inv_1
+x504 net490 net491 VDD VSS sg13g2_inv_1
+x505 net493 net490 VDD VSS sg13g2_inv_1
+x506 net492 net493 VDD VSS sg13g2_inv_1
+x507 net495 net492 VDD VSS sg13g2_inv_1
+x508 net494 net495 VDD VSS sg13g2_inv_1
+x509 net497 net494 VDD VSS sg13g2_inv_1
+x510 net496 net497 VDD VSS sg13g2_inv_1
+x511 net499 net496 VDD VSS sg13g2_inv_1
+x512 net498 net499 VDD VSS sg13g2_inv_1
+x513 net501 net498 VDD VSS sg13g2_inv_1
+x514 net500 net501 VDD VSS sg13g2_inv_1
+x515 net503 net500 VDD VSS sg13g2_inv_1
+x516 net502 net503 VDD VSS sg13g2_inv_1
+x517 net505 net502 VDD VSS sg13g2_inv_1
+x518 net504 net505 VDD VSS sg13g2_inv_1
+x519 net507 net504 VDD VSS sg13g2_inv_1
+x520 net506 net507 VDD VSS sg13g2_inv_1
+x521 net509 net506 VDD VSS sg13g2_inv_1
+x522 net508 net509 VDD VSS sg13g2_inv_1
+x523 net511 net508 VDD VSS sg13g2_inv_1
+x524 net510 net511 VDD VSS sg13g2_inv_1
+x525 net512 net510 VDD VSS sg13g2_inv_1
+x526 net513 net512 VDD VSS sg13g2_inv_1
+x527 net515 net513 VDD VSS sg13g2_inv_1
+x528 net514 net515 VDD VSS sg13g2_inv_1
+x529 net517 net514 VDD VSS sg13g2_inv_1
+x530 net516 net517 VDD VSS sg13g2_inv_1
+x531 net519 net516 VDD VSS sg13g2_inv_1
+x532 net518 net519 VDD VSS sg13g2_inv_1
+x533 net521 net518 VDD VSS sg13g2_inv_1
+x534 net520 net521 VDD VSS sg13g2_inv_1
+x535 net523 net520 VDD VSS sg13g2_inv_1
+x536 net522 net523 VDD VSS sg13g2_inv_1
+x537 net525 net522 VDD VSS sg13g2_inv_1
+x538 net524 net525 VDD VSS sg13g2_inv_1
+x539 net527 net524 VDD VSS sg13g2_inv_1
+x540 net526 net527 VDD VSS sg13g2_inv_1
+x541 net529 net526 VDD VSS sg13g2_inv_1
+x542 net528 net529 VDD VSS sg13g2_inv_1
+x543 net531 net528 VDD VSS sg13g2_inv_1
+x544 net530 net531 VDD VSS sg13g2_inv_1
+x545 net533 net530 VDD VSS sg13g2_inv_1
+x546 net532 net533 VDD VSS sg13g2_inv_1
+x547 net535 net532 VDD VSS sg13g2_inv_1
+x548 net534 net535 VDD VSS sg13g2_inv_1
+x549 net536 net534 VDD VSS sg13g2_inv_1
+x550 net537 net536 VDD VSS sg13g2_inv_1
+x551 net539 net537 VDD VSS sg13g2_inv_1
+x552 net538 net539 VDD VSS sg13g2_inv_1
+x553 net541 net538 VDD VSS sg13g2_inv_1
+x554 net540 net541 VDD VSS sg13g2_inv_1
+x555 net543 net540 VDD VSS sg13g2_inv_1
+x556 net542 net543 VDD VSS sg13g2_inv_1
+x557 net545 net542 VDD VSS sg13g2_inv_1
+x558 net544 net545 VDD VSS sg13g2_inv_1
+x559 net547 net544 VDD VSS sg13g2_inv_1
+x560 net546 net547 VDD VSS sg13g2_inv_1
+x561 net549 net546 VDD VSS sg13g2_inv_1
+x562 net548 net549 VDD VSS sg13g2_inv_1
+x563 net551 net548 VDD VSS sg13g2_inv_1
+x564 net550 net551 VDD VSS sg13g2_inv_1
+x565 net553 net550 VDD VSS sg13g2_inv_1
+x566 net552 net553 VDD VSS sg13g2_inv_1
+x567 net555 net552 VDD VSS sg13g2_inv_1
+x568 net554 net555 VDD VSS sg13g2_inv_1
+x569 net557 net554 VDD VSS sg13g2_inv_1
+x570 net556 net557 VDD VSS sg13g2_inv_1
+x571 net559 net556 VDD VSS sg13g2_inv_1
+x572 net558 net559 VDD VSS sg13g2_inv_1
+x573 144_out net558 VDD VSS sg13g2_inv_1
+**** begin user architecture code
+
+.include /foss/pdks/ihp-sg13g2/libs.ref/sg13g2_stdcell/spice/sg13g2_stdcell.spice
+
+.control
+set filetype=binary
+tran 10p 100n
+write untitled.raw all
+quit
+.endc
+
+
+
+
+.lib cornerMOSlv.lib mos_tt
+.lib cornerMOShv.lib mos_tt
+.lib cornerHBT.lib hbt_typ
+.lib cornerRES.lib res_typ
+.lib cornerDIO.lib dio_tt
+
+
+
+
+
+VDDSRC VDD 0 PWL(0 1.8 5n 1.8 5.0000001n 0.7 25n 0.7 25.0001n 1.8)
+
+**** end user architecture code
+**.ends
+.end

@@ -28,7 +28,18 @@ DESIGN_NAME: chip_top
 VERILOG_FILES:
 - dir::../src/chip_top.sv
 - dir::../src/chip_core.sv
-
+- dir::../src/rtl/fault_injection_detection_core.sv
+- dir::../src/rtl/spi/spi_slave_interface.sv
+- dir::../src/rtl/register/register.sv
+- dir::../src/rtl/register/register_control_config.sv
+- dir::../src/rtl/register/register_status.sv
+- dir::../src/rtl/register/register_threshold.sv
+- dir::../src/rtl/multi_trc/delay_paths.sv
+- dir::../src/rtl/multi_trc/trc_behavioral_chain.sv
+- dir::../src/rtl/adaptive_calibration/adaptive_calibration.sv
+- dir::../src/rtl/adaptive_decision_block/adaptive_decision.sv
+- dir::../src/rtl/adaptive_decision_block/decision_logic.sv
+- dir::../src/rtl/adaptive_decision_block/failure_estimation.sv
 # Enable plugin for better SystemVerilog support
 # USE_SLANG: True
 # SLANG_ARGUMENTS: ['--keep-hierarchy']
