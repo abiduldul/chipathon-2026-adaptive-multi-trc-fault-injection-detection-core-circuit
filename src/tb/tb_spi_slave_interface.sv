@@ -29,7 +29,7 @@ module top_spi_register (
         .iCLK(iCLK), .iRST(iRST),
         .reg_write(reg_write), .reg_addr(reg_addr), .reg_wdata(reg_wdata), .reg_rdata(reg_rdata),
         .iGLITCH_STATUS(iGLITCH_STATUS), .iACTIVE_TRC(iACTIVE_TRC), .iFAILURE_EST(iFAILURE_EST),
-        .oVGD_EN(oVGD_EN), .oAUTO_CAL_EN(oAUTO_CAL_EN), .oINT_EN(oINT_EN), .oSOFT_RESET_OUT(oSOFT_RESET_OUT),
+        .oVGD_EN(oVGD_EN), .oAUTO_CAL_EN(oAUTO_CAL_EN), .oINT_EN(oINT_EN), .oSOFT_RESET_OUT(oSOFT_RESET_OUT), .oINT_ACK(),
         .oTRC_SEL(trc_sel), .oTHRES_VAL(thres_val), .oCAL_PERIOD(cal_period)
     );
 
