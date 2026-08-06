@@ -12,8 +12,11 @@ module register_status (
     logic [7:0] reg_data;
 
     always_ff @(posedge iCLK or negedge iRST) begin
-        if (!iRST || iSOFT_RST) begin
+        if (!iRST) begin
             reg_data        <= 8'h00;
+        end else if (iSOFT_RST) begin
+        /* synchronous soft reset */
+        reg_data        <= 8'h00;
         end else begin
             reg_data[0]     <= (iINT_ACK) ? 1'b0 : (GLITCH_STATUS ? 1'b1 : reg_data[0]);
             reg_data[2:1]   <= ACTIVE_TRC;

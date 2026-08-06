@@ -6,7 +6,8 @@ module spi_slave_interface (
 
     output logic        oREG_WRITE,
     output logic [1:0]  oREG_ADDR,
-    output logic [7:0]  oREG_WDATA, iREG_RDATA
+    output logic [7:0]  oREG_WDATA,
+    input  logic [7:0]  iREG_RDATA
 );
 
     logic       transaction_done;
@@ -61,18 +62,20 @@ module spi_slave_interface (
        MISO SHIFT REGISTER
     ------------------------------------------------------------ */
     always_ff @(negedge iSPI_SCK or posedge iSPI_CS) begin
-        if (iSPI_CS)    read_buffer <= iREG_RDATA;
-        else begin
-            if (bit_cnt == 3'd0 && transaction_done) read_buffer <= iREG_RDATA;
-            else                                     read_buffer <= {read_buffer[6:0], 1'b0};
-        end
+        if (iSPI_CS)            read_buffer <= 8'h00;
+        else if (bit_cnt == 3'd1) read_buffer <= {iREG_RDATA[6:0], 1'b0};
+        else                    read_buffer <= {read_buffer[6:0], 1'b0};
     end
 
 
     /* ------------------------------------------------------------
        OUTPUT
     ------------------------------------------------------------ */
-    assign oREG_ADDR = (iSPI_CS == 1'b0) ? shift_reg[6:5] : reg_addr_reg;
-    assign oSPI_MISO = (iSPI_CS == 1'b0) ? read_buffer[7] : 1'bz;
+    /* Latched address: updated in the same iCLK edge that asserts
+       oREG_WRITE, and holds the transfer-1 address during the data
+       phase of a read. */
+    assign oREG_ADDR = reg_addr_reg;
+
+    assign oSPI_MISO = (bit_cnt == 3'd0) ? iREG_RDATA[7] : read_buffer[7];
 
 endmodule
