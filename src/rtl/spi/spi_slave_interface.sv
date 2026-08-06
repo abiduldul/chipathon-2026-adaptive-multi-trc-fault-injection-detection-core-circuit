@@ -71,6 +71,11 @@ module spi_slave_interface (
     /* ------------------------------------------------------------
        OUTPUT
     ------------------------------------------------------------ */
+    /* Latched address: updated in the same iCLK edge that asserts
+       oREG_WRITE, and holds the transfer-1 address during the data
+       phase of a read. */
+    assign oREG_ADDR = reg_addr_reg;
+
     assign oSPI_MISO = (bit_cnt == 3'd0) ? iREG_RDATA[7] : read_buffer[7];
 
 endmodule

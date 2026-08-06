@@ -11,7 +11,7 @@ AVAILABLE_SLOTS = 1x1 0p5x1 1x0p5 0p5x0p5 workshop
 DEFAULT_SLOT = 1x1
 
 # Slot can be any of AVAILABLE_SLOTS
-SLOT ?= $(DEFAULT_SLOT)
+SLOT ?= 0p5x0p5
 
 ifeq ($(SLOT),default)        
     SLOT = $(DEFAULT_SLOT)
