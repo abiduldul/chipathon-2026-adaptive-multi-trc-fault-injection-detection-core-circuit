@@ -18,3 +18,26 @@ project:
   description: "TRC Test"             # Short one-line description
   lvs_config: "lvs_config.json"
 
+pins: 
+  - name: vss
+    io_type: ground
+  - name: vdd         
+    io_type: power
+  - name: iCLK 
+    io_type: input_schmitt
+  - name: iRST
+    io_type: input_cmos
+  - name: iSPI_CS
+    io_type: bidirectional
+  - name: iSPI_SCK
+    io_type: bidirectional
+  - name: iSPI_MOSI
+    io_type: bidirectional
+  - name: oSPI_MISO
+    io_type: bidirectional
+  - name: oINTERRUPT
+    io_type: bidirectional
+  - name: vcc
+    io_type: power    
+  - name: gnd
+    io_type: ground
