@@ -1,0 +1,163 @@
+library (trc_top) {
+  comment                        : "";
+  delay_model                    : table_lookup;
+  simulation                     : false;
+  capacitive_load_unit (1,pF);
+  leakage_power_unit             : 1pW;
+  current_unit                   : "1mA";
+  pulling_resistance_unit        : "1ohm";
+  time_unit                      : "1ns";
+  voltage_unit                   : "1v";
+  library_features(report_delay_calculation);
+
+  input_threshold_pct_rise : 50;
+  input_threshold_pct_fall : 50;
+  output_threshold_pct_rise : 50;
+  output_threshold_pct_fall : 50;
+  slew_lower_threshold_pct_rise : 30;
+  slew_lower_threshold_pct_fall : 30;
+  slew_upper_threshold_pct_rise : 70;
+  slew_upper_threshold_pct_fall : 70;
+  slew_derate_from_library : 1.0;
+
+
+  nom_process                    : 1.0;
+  nom_temperature                : -40.0;
+  nom_voltage                    : 5.50;
+
+  lu_table_template(template_1) {
+    variable_1 : total_output_net_capacitance;
+    index_1("0.00100,  0.00746,  0.03014,  0.07345,  0.14090,  0.23560,  0.36020,  0.51710,  0.70870,  0.93700");
+  }
+
+  cell ("trc_top") {
+    area : 57848.781 
+    is_macro_cell : true;
+    pin("iCLK") {
+      direction : input;
+      clock : true;
+      capacitance : 0.0460;
+      timing() {
+        timing_sense : positive_unate;
+        timing_type : min_clock_tree_path;
+	cell_rise(scalar) {
+          values("0.58716");
+	}
+	cell_fall(scalar) {
+          values("0.55775");
+	}
+      }
+      timing() {
+        timing_sense : positive_unate;
+        timing_type : max_clock_tree_path;
+	cell_rise(scalar) {
+          values("0.59715");
+	}
+	cell_fall(scalar) {
+          values("0.56790");
+	}
+      }
+    }
+    pin("iRST") {
+      direction : input;
+      capacitance : 0.0068;
+    }
+    pin("iSPI_CS") {
+      direction : input;
+      capacitance : 0.0083;
+    }
+    pin("iSPI_MOSI") {
+      direction : input;
+      capacitance : 0.0044;
+    }
+    pin("iSPI_SCK") {
+      direction : input;
+      capacitance : 0.0089;
+    }
+    pin("oINTERRUPT_CS") {
+      direction : output;
+      capacitance : 0.0021;
+    }
+    pin("oINTERRUPT_IE") {
+      direction : output;
+      capacitance : 0.0015;
+    }
+    pin("oINTERRUPT_IN") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("oINTERRUPT_OE") {
+      direction : output;
+      capacitance : 0.0017;
+    }
+    pin("oINTERRUPT_OUT") {
+      direction : output;
+      capacitance : 0.0007;
+      timing() {
+        related_pin : "iCLK";
+        timing_type : rising_edge;
+	cell_rise(template_1) {
+          index_1("0.00100,  0.00746,  0.03014,  0.07345,  0.14090,  0.23560,  0.36020,  0.51710,  0.70870,  0.93700");
+          values("4.16812,4.18263,4.22252,4.29041,4.39591,4.54471,4.74161,4.99050,5.29447,5.65648");
+	}
+	rise_transition(template_1) {
+          index_1("0.00100,  0.00746,  0.03014,  0.07345,  0.14090,  0.23560,  0.36020,  0.51710,  0.70870,  0.93700");
+          values("0.04707,0.06380,0.11681,0.22800,0.41120,0.67041,1.01300,1.44600,1.97299,2.60200");
+	}
+	cell_fall(template_1) {
+          index_1("0.00100,  0.00746,  0.03014,  0.07345,  0.14090,  0.23560,  0.36020,  0.51710,  0.70870,  0.93700");
+          values("4.06629,4.08162,4.12505,4.19817,4.30887,4.46430,4.66923,4.92808,5.24339,5.62039");
+	}
+	fall_transition(template_1) {
+          index_1("0.00100,  0.00746,  0.03014,  0.07345,  0.14090,  0.23560,  0.36020,  0.51710,  0.70870,  0.93700");
+          values("0.04336,0.06109,0.11708,0.22640,0.40577,0.66329,1.00100,1.42800,1.95047,2.56808");
+	}
+      }
+    }
+    pin("oINTERRUPT_PD") {
+      direction : output;
+      capacitance : 0.0011;
+    }
+    pin("oINTERRUPT_PU") {
+      direction : output;
+      capacitance : 0.0014;
+    }
+    pin("oINTERRUPT_SL") {
+      direction : output;
+      capacitance : 0.0020;
+    }
+    pin("oSPI_MISO_CS") {
+      direction : output;
+      capacitance : 0.0022;
+    }
+    pin("oSPI_MISO_IE") {
+      direction : output;
+      capacitance : 0.0023;
+    }
+    pin("oSPI_MISO_IN") {
+      direction : input;
+      capacitance : 0.0000;
+    }
+    pin("oSPI_MISO_OE") {
+      direction : output;
+      capacitance : 0.0020;
+    }
+    pin("oSPI_MISO_OUT") {
+      direction : output;
+      capacitance : 0.0031;
+    }
+    pin("oSPI_MISO_PD") {
+      direction : output;
+      capacitance : 0.0021;
+    }
+    pin("oSPI_MISO_PU") {
+      direction : output;
+      capacitance : 0.0021;
+    }
+    pin("oSPI_MISO_SL") {
+      direction : output;
+      capacitance : 0.0009;
+    }
+  }
+
+}

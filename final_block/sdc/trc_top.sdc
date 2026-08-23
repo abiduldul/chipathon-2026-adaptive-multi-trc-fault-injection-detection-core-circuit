@@ -1,0 +1,65 @@
+###############################################################################
+# Created by write_sdc
+###############################################################################
+current_design trc_top
+###############################################################################
+# Timing Constraints
+###############################################################################
+create_clock -name iCLK -period 40.0000 [get_ports {iCLK}]
+set_clock_transition 0.1500 [get_clocks {iCLK}]
+set_clock_uncertainty 0.2500 iCLK
+set_propagated_clock [get_clocks {iCLK}]
+set_input_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {iRST}]
+set_input_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {iSPI_CS}]
+set_input_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {iSPI_MOSI}]
+set_input_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {iSPI_SCK}]
+set_input_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_IN}]
+set_input_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_IN}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_CS}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_IE}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_OE}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_OUT}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_PD}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_PU}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oINTERRUPT_SL}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_CS}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_IE}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_OE}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_OUT}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_PD}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_PU}]
+set_output_delay 8.0000 -clock [get_clocks {iCLK}] -add_delay [get_ports {oSPI_MISO_SL}]
+set_false_path\
+    -from [list [get_ports {iRST}]\
+           [get_ports {iSPI_CS}]\
+           [get_ports {iSPI_SCK}]]
+###############################################################################
+# Environment
+###############################################################################
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_CS}]
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_IE}]
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_OE}]
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_OUT}]
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_PD}]
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_PU}]
+set_load -pin_load 0.0729 [get_ports {oINTERRUPT_SL}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_CS}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_IE}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_OE}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_OUT}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_PD}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_PU}]
+set_load -pin_load 0.0729 [get_ports {oSPI_MISO_SL}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_4 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {iCLK}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_1 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {iRST}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_1 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {iSPI_CS}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_1 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {iSPI_MOSI}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_1 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {iSPI_SCK}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_1 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {oINTERRUPT_IN}]
+set_driving_cell -lib_cell gf180mcu_fd_sc_mcu7t5v0__inv_1 -pin {ZN} -input_transition_rise 0.0000 -input_transition_fall 0.0000 [get_ports {oSPI_MISO_IN}]
+###############################################################################
+# Design Rules
+###############################################################################
+set_max_transition 3.0000 [current_design]
+set_max_capacitance 0.2000 [current_design]
+set_max_fanout 10.0000 [current_design]

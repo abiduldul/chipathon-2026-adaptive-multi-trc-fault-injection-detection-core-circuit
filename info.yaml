@@ -1,43 +1,47 @@
-# ----- ------ ----- ----- ------ ----- ----- ------ -----
 # Chipathon 2026: Project configuration
 # LICENSE: Apache License Version 2.0
 # http://www.apache.org/licenses/
-# ----- ------ ----- ----- ------ ----- ----- ------ -----
 
 # data will be pulled from main branch of the repo.
 # please be sure that the main branch contains the data you want to submit.
-# This file will be updated with more information later
 
 # ======================================================
 # Project metadata (used for documentation / review)
 # ======================================================
 project:
-  title: "TRC"                        # Project title (e.g. "Simple CPU", "PLL", "ADC")
-  team: "A48 HORE"                    # Your Team name
-  discord: "@abem._"                  # Optional: Discord username (for support / communication)
-  description: "TRC Test"             # Short one-line description
+  title: "TRC"
+  team: "A48 HORE"
+  discord: "@abem._"
+  description: "Adaptive multi-TRC fault injection detection core"
   lvs_config: "lvs_config.json"
 
-pins: 
-  - name: vss
+# ======================================================
+# Pin definitions
+# ======================================================
+pins:
+  - name: VSS
     io_type: ground
-  - name: vdd         
+
+  - name: VDD
     io_type: power
-  - name: iCLK 
+
+  - name: iCLK
     io_type: input_schmitt
+
   - name: iRST
     io_type: input_cmos
+
   - name: iSPI_CS
-    io_type: bidirectional
+    io_type: input_cmos
+
   - name: iSPI_SCK
-    io_type: bidirectional
+    io_type: input_schmitt
+
   - name: iSPI_MOSI
-    io_type: bidirectional
+    io_type: input_cmos
+
   - name: oSPI_MISO
     io_type: bidirectional
+
   - name: oINTERRUPT
-    io_type: bidirectional
-  - name: vcc
-    io_type: power    
-  - name: gnd
-    io_type: ground
+    io_type: bidirectionals

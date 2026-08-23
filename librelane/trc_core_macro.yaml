@@ -1,0 +1,100 @@
+# Standalone hardening config untuk blok TRC — Tim A48.
+# Menjalankan LibreLane Classic flow: tanpa padring, tanpa integrasi chip-level.
+# Mengikuti pola librelane/chip_core_macro.yaml dari repo A34 SiliconForge.
+#
+# Simpan sebagai: librelane/trc_core_macro.yaml
+# Jalankan SENDIRIAN — jangan digabung dengan librelane/config.yaml
+# atau librelane/slots/*.yaml (keduanya khusus flow Chip / padring).
+
+meta:
+  version: 3
+  flow: Classic
+
+DESIGN_NAME: trc_top
+
+VERILOG_FILES:
+  - dir::../src/chipathon_wrapper/trc_top.sv
+  - dir::../src/rtl/fault_injection_detection_core.sv
+  - dir::../src/rtl/spi/spi_slave_interface.sv
+  - dir::../src/rtl/register/register.sv
+  - dir::../src/rtl/register/register_control_config.sv
+  - dir::../src/rtl/register/register_status.sv
+  - dir::../src/rtl/register/register_threshold.sv
+  - dir::../src/rtl/multi_trc/delay_paths.sv
+  - dir::../src/rtl/multi_trc/trc_behavioral_chain.sv
+  - dir::../src/rtl/adaptive_calibration/adaptive_calibration.sv
+  - dir::../src/rtl/adaptive_decision_block/adaptive_decision.sv
+  - dir::../src/rtl/adaptive_decision_block/failure_estimation.sv
+  - dir::../src/rtl/adaptive_decision_block/decision_logic.sv
+
+# ------------------------------------------------------------
+# Clock
+# CLOCK_NET == CLOCK_PORT karena clock masuk langsung ke port
+# blok, bukan lewat output sel pad (clk_pad/Y) seperti flow Chip.
+# ------------------------------------------------------------
+CLOCK_PORT: iCLK
+CLOCK_NET: iCLK
+CLOCK_PERIOD: 40      # ns -> 25 MHz
+
+PNR_SDC_FILE: dir::trc_top.sdc
+SIGNOFF_SDC_FILE: dir::trc_top.sdc
+
+# ------------------------------------------------------------
+# Floorplan
+# 'relative' = LibreLane menghitung sendiri ukuran blok dari
+# jumlah gerbang hasil sintesis. Jangan pakai 'absolute' sebelum
+# tahu berapa besar desain kalian sebenarnya.
+#
+# Setelah run pertama, baca DIE_AREA hasilnya di final/metrics.csv,
+# cocokkan dengan tab "block" di sheet audit, lalu (kalau perlu)
+# ganti ke FP_DEF_TEMPLATE dari panitia.
+# ------------------------------------------------------------
+FP_SIZING: relative
+FP_CORE_UTIL: 30
+PL_TARGET_DENSITY_PCT: 55
+GRT_ALLOW_CONGESTION: true
+
+# FP_DEF_TEMPLATE: dir::../def/a48_block.def   # <- aktifkan setelah DEF diterima
+
+# ------------------------------------------------------------
+# Timing repair
+# ------------------------------------------------------------
+CTS_SINK_CLUSTERING_ENABLE: true
+CTS_SINK_CLUSTERING_SIZE: 8
+CTS_DISTANCE_BETWEEN_BUFFERS: 225
+
+DESIGN_REPAIR_MAX_SLEW_PCT: 30
+DESIGN_REPAIR_MAX_CAP_PCT: 30
+RUN_POST_GRT_RESIZER_TIMING: true
+RUN_POST_GRT_DESIGN_REPAIR: true
+GRT_DESIGN_REPAIR_MAX_SLEW_PCT: 30
+GRT_DESIGN_REPAIR_MAX_CAP_PCT: 30
+
+PL_RESIZER_HOLD_SLACK_MARGIN: 0.35
+GRT_RESIZER_HOLD_SLACK_MARGIN: 0.3
+
+DRT_ANTENNA_REPAIR_ITERS: 10
+DRT_ANTENNA_REPAIR_MARGIN: 10   # %
+
+# ------------------------------------------------------------
+# Signoff
+# ------------------------------------------------------------
+PRIMARY_GDSII_STREAMOUT_TOOL: klayout
+ERROR_ON_MAGIC_DRC: false
+
+KLAYOUT_FILLER_OPTIONS:
+  Metal2_ignore_active: true
+
+# ============================================================
+# CATATAN: VDD_NETS / GND_NETS sengaja TIDAK di-set.
+# Default PDK adalah VDD / VSS, dan itu yang dipakai repo A34.
+# Kalau kalian tetap mau dua domain (vcc 5V + vdd 3.3V), baru
+# tambahkan VDD_NETS / GND_NETS di sini DAN samakan nama port
+# power di trc_top.sv serta nama pin di info.yaml.
+#
+# Yang sengaja tidak ada (semuanya khusus padring):
+#   MACROS (chip_id, wafer_space_logo), PDN_MACRO_CONNECTIONS,
+#   PDN_CFG, PDN_CORE_RING*, IGNORE_DISCONNECTED_MODULES,
+#   MAGIC_GDS_FLATGLOB, MAGIC_EXT_UNIQUE,
+#   PAD_SOUTH / PAD_EAST / PAD_NORTH / PAD_WEST
+# ============================================================

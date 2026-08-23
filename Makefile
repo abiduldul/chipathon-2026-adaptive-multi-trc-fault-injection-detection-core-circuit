@@ -82,3 +82,9 @@ render-image: ## Render an image from the final layout (after copy-final)
 	mkdir -p img/
 	PDK_ROOT=${PDK_ROOT} PDK=${PDK} python3 scripts/lay2img.py final/gds/${TOP}.gds img/${TOP}.png --width 2048 --oversampling 4
 .PHONY: copy-final
+
+
+### new command ###
+hore: 
+	librelane librelane/trc_core_macro.yaml --save-views-to $(MAKEFILE_DIR)/final_block --pdk ${PDK} --pdk-root ${PDK_ROOT} --manual-pdk
+.PHONY: hore

@@ -3,13 +3,11 @@ __pycache__/
 gf180mcu/
 gf180_drc.lyrdb
 sim_build/
-# final/
+final/
+final_block/
+
 img/
 *.lyrdb
 .ipynb_checkpoints/
-<<<<<<< HEAD
-*.raw
-=======
 
 sim/build/
->>>>>>> main
