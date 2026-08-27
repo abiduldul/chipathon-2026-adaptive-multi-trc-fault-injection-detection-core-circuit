@@ -44,4 +44,4 @@ pins:
     io_type: bidirectional
 
   - name: oINTERRUPT
-    io_type: bidirectionals
+    io_type: bidirectional
