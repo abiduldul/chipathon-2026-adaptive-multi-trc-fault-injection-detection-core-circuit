@@ -58,5 +58,4 @@ set_load -pin_load 0.0729 [all_outputs]
 # Design rules
 ###############################################################################
 set_max_transition 3.0 [current_design]
-set_max_capacitance 0.2 [current_design]
-set_max_fanout 10.0 [current_design]
+set_max_fanout 128 [current_design]

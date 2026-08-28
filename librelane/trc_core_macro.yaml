@@ -49,12 +49,11 @@ SIGNOFF_SDC_FILE: dir::trc_top.sdc
 # cocokkan dengan tab "block" di sheet audit, lalu (kalau perlu)
 # ganti ke FP_DEF_TEMPLATE dari panitia.
 # ------------------------------------------------------------
-FP_SIZING: relative
-FP_CORE_UTIL: 30
-PL_TARGET_DENSITY_PCT: 55
-GRT_ALLOW_CONGESTION: true
-
-# FP_DEF_TEMPLATE: dir::../def/a48_block.def   # <- aktifkan setelah DEF diterima
+FP_DEF_TEMPLATE: dir::../def/A48_D.def
+FP_SIZING: absolute
+DIE_AREA: [0, 0, 550, 550]
+CORE_AREA: [10, 10, 540, 540]
+PL_TARGET_DENSITY_PCT: 15
 
 # ------------------------------------------------------------
 # Timing repair
